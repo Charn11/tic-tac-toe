@@ -1,0 +1,15 @@
+body{
+    min-height: 100vh;
+    background-color: rgb(16, 27, 27);
+}
+.game-box{
+    border: 5px groove rgb(0, 247, 255);
+    width: auto;
+    height: 100vh;
+}
+.game-board{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3,fr);
+    border: 1px solid wheat;
+}
