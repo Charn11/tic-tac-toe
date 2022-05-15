@@ -10,8 +10,10 @@ body{
     display: flex;
     justify-content: center;
     color: black;
+    align-items: center;
     background-color: yellow;
     font-family: Arial, Helvetica, sans-serif;
+    height: 50px;
 }
 #start-button{
     width: 250px;
@@ -34,4 +36,12 @@ body{
     background-color: black;
     height: 100%;
     width: 100%;
+}
+#gridBar{
+    display: grid;
+    grid-template-columns: repeat(3,minmax(150px,1fr));
+    grid-template-rows: repeat(3, minmax(150px,1fr));
+    border: 2px solid yellow;
+    box-sizing: border-box;
+    height: 500px;
 }
