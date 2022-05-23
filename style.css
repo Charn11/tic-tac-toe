@@ -15,6 +15,19 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     height: 50px;
 }
+#player1,#player2{
+    height: 20px;
+    width: 250px;
+}
+.input-div{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 75px;
+    height: fit-content;
+    color: yellow;
+    width: max-content;
+}
 #start-button{
     width: 250px;
     height: 50px;
@@ -32,14 +45,20 @@ body{
 }
 .game-board{
     display: flex;
-    justify-content: center;
     background-color: black;
     height: 100%;
     width: 100%;
 }
-.bars{
+#grid-cont{
     display: grid;
-    border: 2px solid cyan;
-    height: 50px;
-    width: 50px;
+    position: relative;
+    top: 50px;
+    grid-template-columns: repeat(3, 150px);
+    grid-template-rows: repeat(3, 150px);
+    gap: 2px;
+    background-color: yellow;
+    height: fit-content;
+}
+.grid-elm{
+    background-color: black;
 }
