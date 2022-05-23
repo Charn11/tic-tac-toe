@@ -18,7 +18,22 @@ const TicTacToeModule = ( () => {
 
     //listens for XO player click in gameboard
     let playerMove = document.getElementsByClassName('grid-elm');
-    
+    let count = 0;
+    document.addEventListener('click', e => {
+        if(e.target.className=="grid-elm")
+        {
+            if(count%2!=0)
+            {
+                e.target.innerText = "X";
+                count++;
+            }
+            else
+            {
+                e.target.innerText = "O";
+                count++;
+            }
+        }
+    })
 })();
 
 
