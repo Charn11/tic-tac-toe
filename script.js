@@ -14,6 +14,12 @@ const TicTacToeModule = ( () => {
             grid_elm.setAttribute('class','grid-elm')
             document.getElementById('grid-cont').appendChild(grid_elm);
         }
+
+        //store player name in object
+        const player1 = playerFactory(validate1.value,0);
+        const player2 = playerFactory(validate2.value,0);
+        console.log(player2.playerName);
+        console.log(player1.playerName);
     });
 
     //listens for XO player click in gameboard
@@ -34,6 +40,19 @@ const TicTacToeModule = ( () => {
             }
         }
     })
+
+    //validate submit button
+    const validate1 = document.getElementById('player1');
+    const validate2 = document.getElementById('player2');
+    const form = document.getElementById('playerNames')
+    form.addEventListener('input', e => {
+        if(validate1.value!=""&&validate2.value!="")
+        {
+            startGame.disabled = false;
+        }
+    })
 })();
 
-
+const playerFactory = (playerName, score) => {
+    return {playerName: playerName, score: score};
+}

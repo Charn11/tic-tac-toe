@@ -15,15 +15,17 @@
             </div>
             <div class="game-board" id="board-selector">
                 <div class="input-cont" id="input-container">
-                    <span class="choose-player">
-                        <label for="player1">Player 1(X):</label>
-                        <input type="text" id="player1" placeholder="Enter Player 1 name">
-                    </span>
-                    <span class="choose-player">
-                        <label for="player2">Player 2(O):</label>
-                        <input type="text" id="player2" placeholder="Enter Player 2 name">
-                    </span>
-                    <button id="start-button">START GAME</button>
+                    <form action="" id="playerNames">
+                        <span class="choose-player">
+                            <label for="player1">Player 1(X):</label>
+                            <input type="text" id="player1" placeholder="Enter Player 1 name">
+                        </span>
+                        <span class="choose-player">
+                            <label for="player2">Player 2(O):</label>
+                            <input type="text" id="player2" placeholder="Enter Player 2 name">
+                        </span>
+                    </form>
+                    <button id="start-button" disabled>START GAME</button>
                 </div>
             </div>
         </div>
