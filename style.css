@@ -8,7 +8,7 @@ body{
 }
 .title{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     color: black;
     align-items: center;
     background-color: yellow;

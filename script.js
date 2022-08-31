@@ -11,7 +11,8 @@ const TicTacToeModule = ( () => {
         for(let i=0; i<9; i++)
         {
             let grid_elm = document.createElement('div');
-            grid_elm.setAttribute('class','grid-elm')
+            grid_elm.setAttribute('class','grid-elm');
+            grid_elm.setAttribute('id',i+1);
             document.getElementById('grid-cont').appendChild(grid_elm);
         }
 
@@ -20,22 +21,28 @@ const TicTacToeModule = ( () => {
         const player2 = playerFactory(validate2.value,0);
         console.log(player2.playerName);
         console.log(player1.playerName);
+
+        //change score player name on click of start button
+        let scr1 = document.getElementById('scr1');
+        scr1.innerText = player1.playerName+"(X): 0";
+        let scr2 = document.getElementById('scr2');
+        scr2.innerText = player2.playerName+"(O): 0";
     });
 
     //listens for XO player click in gameboard
     let playerMove = document.getElementsByClassName('grid-elm');
     let count = 0;
     document.addEventListener('click', e => {
-        if(e.target.className=="grid-elm")
-        {
+        if(e.target.className=="grid-elm"&&e.target.innerText=="")
+        {  
             if(count%2!=0)
             {
-                e.target.innerText = "X";
+                e.target.innerText = "O";
                 count++;
             }
             else
             {
-                e.target.innerText = "O";
+                e.target.innerText = "X";
                 count++;
             }
         }
@@ -51,6 +58,12 @@ const TicTacToeModule = ( () => {
             startGame.disabled = false;
         }
     })
+
+    //gameplay logic
+    let b1 = document.getElementById('1'), b2 = document.getElementById('2'), b3 = document.getElementById('3'), 
+    b4 = document.getElementById('4'), b5 = document.getElementById('5'), b6 = document.getElementById('6'), 
+    b7 = document.getElementById('7'), b8 = document.getElementById('8'), b9 = document.getElementById('9');
+
 })();
 
 const playerFactory = (playerName, score) => {
