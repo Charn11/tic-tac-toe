@@ -12,7 +12,7 @@ const TicTacToeModule = ( () => {
         {
             let grid_elm = document.createElement('div');
             grid_elm.setAttribute('class','grid-elm');
-            grid_elm.setAttribute('id',i+1);
+            grid_elm.setAttribute('id',"b"+(i+1));
             document.getElementById('grid-cont').appendChild(grid_elm);
         }
 
@@ -60,9 +60,24 @@ const TicTacToeModule = ( () => {
     })
 
     //gameplay logic
-    let b1 = document.getElementById('1'), b2 = document.getElementById('2'), b3 = document.getElementById('3'), 
-    b4 = document.getElementById('4'), b5 = document.getElementById('5'), b6 = document.getElementById('6'), 
-    b7 = document.getElementById('7'), b8 = document.getElementById('8'), b9 = document.getElementById('9');
+    let b1 = document.getElementById('b1'), b2 = document.getElementById('b2'), b3 = document.getElementById('b3'), 
+    b4 = document.getElementById('b4'), b5 = document.getElementById('b5'), b6 = document.getElementById('b6'), 
+    b7 = document.getElementById('b7'), b8 = document.getElementById('b8'), b9 = document.getElementById('b9');
+    
+    document.addEventListener('click', e=> {
+      
+        let classList = document.getElementsByClassName("grid-elm");
+        let s = [];
+        for(let i=0; i<classList.length; i++)
+        {
+            s[i]=classList[i].innerText;
+            if(s[0]=="X"&&s[1]=="X"&&s[2]=="X")
+            {
+                alert("yes");
+            }
+        }
+      
+    })
 
 })();
 
