@@ -69,6 +69,7 @@ const TicTacToeModule = ( () => {
 let player1, player2;
 let stage = 1;
 let resetCount = 0;
+
 //gameplay logic
 let b1 = document.getElementById('b1'), b2 = document.getElementById('b2'), b3 = document.getElementById('b3'), 
 b4 = document.getElementById('b4'), b5 = document.getElementById('b5'), b6 = document.getElementById('b6'), 
@@ -83,13 +84,15 @@ document.addEventListener('click', e=> {
         s[i]=classList[i].innerText;
         if((s[0]=="X"&&s[1]=="X"&&s[2]=="X")||(s[0]=="X"&&s[3]=="X"&&s[6]=="X")||(s[0]=="X"&&s[4]=="X"&&s[8]=="X"))
         {
-            alert(player1.playerName);
+            alert(player1.playerName+" wins");
+            player1.score++;
+            document.getElementById("scr1").innerText = player1.playerName+"(X): "+player1.score;
+            stage++;
             document.getElementById("round").innerText = "Round "+stage;
             resetBoard();
             break;
         }
     }
-  
 })
 
 function resetBoard()
@@ -104,9 +107,5 @@ function resetBoard()
 
 
 const playerFactory = (playerName, score) => {
-    const returnName = () => 
-    {
-        alert(this.playerName);
-    }
-    return {playerName, score, returnName};
+    return {playerName, score};
 }
