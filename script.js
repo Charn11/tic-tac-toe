@@ -47,9 +47,9 @@ const TicTacToeModule = ( () => {
 
         //change score player name on click of start button
         let scr1 = document.getElementById('scr1');
-        scr1.innerText = player1.playerName+"(X): 0";
+        scr1.innerText = player1.playerName+"(X)";
         let scr2 = document.getElementById('scr2');
-        scr2.innerText = player2.playerName+"(O): 0";
+        scr2.innerText = player2.playerName+"(O)";
     });
     
     //listens for XO player click in gameboard
@@ -85,10 +85,11 @@ let player1, player2;
 let stage = 1;
 let resetCount = 0;
 let gameCount = 0;
+let currentScore;
 
 //Gameplay Module
 const Gameplay = ( () => {
-    document.addEventListener('click', e=> {
+    let polo = document.addEventListener('click', e=> {
     
         let classList = document.getElementsByClassName("grid-elm");
         let s = [];
@@ -99,15 +100,13 @@ const Gameplay = ( () => {
             (s[1]=="X"&&s[4]=="X"&&s[7]=="X")||(s[2]=="X"&&s[4]=="X"&&s[6]=="X")||(s[2]=="X"&&s[5]=="X"&&s[8]=="X")||
             (s[3]=="X"&&s[4]=="X"&&s[5]=="X")||(s[6]=="X"&&s[7]=="X"&&s[8]=="X"))
             {
-                document.body.style.pointerEvents = "none"
                 gameCount = 1;
                 player1.score++;
-                document.getElementById("scr1").innerText = player1.playerName+"(X): "+player1.score;
+                //document.getElementById("scr1").innerText = player1.playerName+"(X): "+player1.score;
                 let nextRound = document.createElement('div');
                 nextRound.setAttribute('id','next');
                 nextRound.innerText = player1.playerName+" wins!";
                 document.getElementById('board-selector').appendChild(nextRound);
-                document.getElementById('restart').remove();
                 addButtons();
                 break;
             }
@@ -117,43 +116,16 @@ const Gameplay = ( () => {
             {
                 gameCount = 1;
                 player2.score++;
-                document.getElementById("scr2").innerText = player2.playerName+"(O): "+player2.score;
+                //document.getElementById("scr2").innerText = player2.playerName+"(O): "+player2.score;
                 let nextRound = document.createElement('div');
                 nextRound.setAttribute('id','next');
                 nextRound.innerText = player2.playerName+" wins!";
                 document.getElementById('board-selector').appendChild(nextRound);
-                document.getElementById('restart').remove();
                 addButtons();
                 break;
             }
         }
     })
-
-    /*function logic(a)
-    {
-        if(a==1)
-        {
-            player1.score++;
-            document.getElementById("scr1").innerText = player1.playerName+"(X): "+player1.score;
-            let nextRound = document.createElement('div');
-            nextRound.setAttribute('id','next');
-            nextRound.innerText = player1.playerName+" wins!";
-            document.getElementById('board-selector').appendChild(nextRound);
-            document.getElementById('restart').remove();
-            document.body.style.pointerEvents = "none"
-            addButtons();
-        }
-        else if(a==2){
-            player2.score++;
-            document.getElementById("scr2").innerText = player2.playerName+"(O): "+player2.score;
-            let nextRound = document.createElement('div');
-            nextRound.setAttribute('id','next');
-            nextRound.innerText = player2.playerName+" wins!";
-            document.getElementById('board-selector').appendChild(nextRound);
-            document.getElementById('restart').remove();
-            addButtons();
-        }
-    }*/
 
     function addButtons(){
         let nextButton = document.createElement('button');
@@ -167,28 +139,12 @@ const Gameplay = ( () => {
         nextButton.addEventListener('click', e=> {
             stage++;
             document.getElementById("round").innerText = "Round "+stage;
-            addRestartButton();
+            //addRestartButton();
             resetBoard();
             })
         resetButton.addEventListener('click', e => {
         location.reload();
             })
-    }
-
-    function addRestartButton()
-    {
-        let restart = document.createElement('button');
-        restart.setAttribute('id','restart');
-        restart.innerText = "Restart";
-        document.getElementById('board-selector').appendChild(restart);
-        restart.addEventListener("click", e => {
-            let resetGrid = document.getElementsByClassName("grid-elm");
-            resetCount = 0;
-            for(let i=0; i<resetGrid.length;i++)
-            {
-                resetGrid[i].innerText = "";
-            }
-        })
     }
 
     function resetBoard()
