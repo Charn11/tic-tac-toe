@@ -86,6 +86,7 @@ let stage = 1;
 let resetCount = 0;
 let gameCount = 0;
 let currentScore;
+let clickCount = 0;
 
 //Gameplay Module
 const Gameplay = ( () => {
@@ -96,18 +97,27 @@ const Gameplay = ( () => {
         for(let i=0; i<classList.length; i++)
         {
             s[i]=classList[i].innerText;
+            console.log(s);
+
+            for(let j=0; j<classList.length;j++)
+            {
+                if(classList[j].innerText!="")
+                {
+                    clickCount++;
+                    break;
+                }
+            }
+            console.log(clickCount);
             if((s[0]=="X"&&s[1]=="X"&&s[2]=="X")||(s[0]=="X"&&s[3]=="X"&&s[6]=="X")||(s[0]=="X"&&s[4]=="X"&&s[8]=="X")||
             (s[1]=="X"&&s[4]=="X"&&s[7]=="X")||(s[2]=="X"&&s[4]=="X"&&s[6]=="X")||(s[2]=="X"&&s[5]=="X"&&s[8]=="X")||
             (s[3]=="X"&&s[4]=="X"&&s[5]=="X")||(s[6]=="X"&&s[7]=="X"&&s[8]=="X"))
             {
                 gameCount = 1;
-                player1.score++;
-                //document.getElementById("scr1").innerText = player1.playerName+"(X): "+player1.score;
                 let nextRound = document.createElement('div');
                 nextRound.setAttribute('id','next');
                 nextRound.innerText = player1.playerName+" wins!";
                 document.getElementById('board-selector').appendChild(nextRound);
-                addButtons();
+                addButtons(1);
                 break;
             }
             else if((s[0]=="O"&&s[1]=="O"&&s[2]=="O")||(s[0]=="O"&&s[3]=="O"&&s[6]=="O")||(s[0]=="O"&&s[4]=="O"&&s[8]=="O")||
@@ -115,19 +125,27 @@ const Gameplay = ( () => {
             (s[3]=="O"&&s[4]=="O"&&s[5]=="O")||(s[6]=="O"&&s[7]=="O"&&s[8]=="O"))
             {
                 gameCount = 1;
-                player2.score++;
-                //document.getElementById("scr2").innerText = player2.playerName+"(O): "+player2.score;
                 let nextRound = document.createElement('div');
                 nextRound.setAttribute('id','next');
                 nextRound.innerText = player2.playerName+" wins!";
                 document.getElementById('board-selector').appendChild(nextRound);
-                addButtons();
+                addButtons(2);
                 break;
+            }
+            else if(clickCount==classList.length)
+            {
+                gameCount = 1;
+                let nextRound = document.createElement('div');
+                nextRound.setAttribute('id','next');
+                nextRound.innerText = "Draw";
+                document.getElementById('board-selector').appendChild(nextRound);
+                addButtons(0);        
+                break;    
             }
         }
     })
 
-    function addButtons(){
+    function addButtons(a){
         let nextButton = document.createElement('button');
         let resetButton = document.createElement('button');
         nextButton.setAttribute('id','nxtButton');
@@ -137,9 +155,18 @@ const Gameplay = ( () => {
         document.getElementById('board-selector').appendChild(nextButton);
         document.getElementById('board-selector').appendChild(resetButton);
         nextButton.addEventListener('click', e=> {
+            if(a==1)
+            {
+                player1.score++;
+                document.getElementById("scr1").innerText = player1.playerName+"(X): "+player1.score;
+            }
+            else if(a==2)
+            {
+                player2.score++;
+                document.getElementById("scr2").innerText = player2.playerName+"(O): "+player2.score;
+            }
             stage++;
             document.getElementById("round").innerText = "Round "+stage;
-            //addRestartButton();
             resetBoard();
             })
         resetButton.addEventListener('click', e => {
