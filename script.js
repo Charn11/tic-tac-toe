@@ -97,26 +97,20 @@ const Gameplay = ( () => {
         for(let i=0; i<classList.length; i++)
         {
             s[i]=classList[i].innerText;
-            console.log(s);
-
-            for(let j=0; j<classList.length;j++)
-            {
-                if(classList[j].innerText!="")
-                {
-                    clickCount++;
-                    break;
-                }
-            }
-            console.log(clickCount);
+    
             if((s[0]=="X"&&s[1]=="X"&&s[2]=="X")||(s[0]=="X"&&s[3]=="X"&&s[6]=="X")||(s[0]=="X"&&s[4]=="X"&&s[8]=="X")||
             (s[1]=="X"&&s[4]=="X"&&s[7]=="X")||(s[2]=="X"&&s[4]=="X"&&s[6]=="X")||(s[2]=="X"&&s[5]=="X"&&s[8]=="X")||
             (s[3]=="X"&&s[4]=="X"&&s[5]=="X")||(s[6]=="X"&&s[7]=="X"&&s[8]=="X"))
             {
                 gameCount = 1;
-                let nextRound = document.createElement('div');
-                nextRound.setAttribute('id','next');
-                nextRound.innerText = player1.playerName+" wins!";
-                document.getElementById('board-selector').appendChild(nextRound);
+                if(clickCount==0)
+                {
+                    let nextRound = document.createElement('div');
+                    nextRound.setAttribute('id','next');
+                    nextRound.innerText = player1.playerName+" wins!";
+                    document.getElementById('board-selector').appendChild(nextRound);
+                }
+                clickCount++;
                 addButtons(1);
                 break;
             }
@@ -129,16 +123,19 @@ const Gameplay = ( () => {
                 nextRound.setAttribute('id','next');
                 nextRound.innerText = player2.playerName+" wins!";
                 document.getElementById('board-selector').appendChild(nextRound);
+                clickCount++;
                 addButtons(2);
                 break;
             }
-            else if(clickCount==classList.length)
+            else if((s[0]=="X"||s[0]=="O")&&(s[1]=="X"||s[1]=="O")&&(s[2]=="X"||s[2]=="O")&&(s[3]=="X"||s[3]=="O")&&(s[4]=="X"||s[4]=="O")&&
+            (s[5]=="X"||s[5]=="O")&&(s[6]=="X"||s[6]=="O")&&(s[7]=="X"||s[7]=="O")&&(s[8]=="X"||s[8]=="O"))
             {
                 gameCount = 1;
                 let nextRound = document.createElement('div');
                 nextRound.setAttribute('id','next');
                 nextRound.innerText = "Draw";
                 document.getElementById('board-selector').appendChild(nextRound);
+                clickCount++;
                 addButtons(0);        
                 break;    
             }
@@ -146,32 +143,36 @@ const Gameplay = ( () => {
     })
 
     function addButtons(a){
-        let nextButton = document.createElement('button');
-        let resetButton = document.createElement('button');
-        nextButton.setAttribute('id','nxtButton');
-        resetButton.setAttribute('id','resetButton');
-        nextButton.innerText = "Next round";
-        resetButton.innerText = "Reset";
-        document.getElementById('board-selector').appendChild(nextButton);
-        document.getElementById('board-selector').appendChild(resetButton);
-        nextButton.addEventListener('click', e=> {
-            if(a==1)
-            {
-                player1.score++;
-                document.getElementById("scr1").innerText = player1.playerName+"(X): "+player1.score;
-            }
-            else if(a==2)
-            {
-                player2.score++;
-                document.getElementById("scr2").innerText = player2.playerName+"(O): "+player2.score;
-            }
-            stage++;
-            document.getElementById("round").innerText = "Round "+stage;
-            resetBoard();
-            })
-        resetButton.addEventListener('click', e => {
-        location.reload();
-            })
+        if(clickCount==1)
+        {
+            let nextButton = document.createElement('button');
+            let resetButton = document.createElement('button');
+            nextButton.setAttribute('id','nxtButton');
+            resetButton.setAttribute('id','resetButton');
+            nextButton.innerText = "Next round";
+            resetButton.innerText = "Reset";
+            document.getElementById('board-selector').appendChild(nextButton);
+            document.getElementById('board-selector').appendChild(resetButton);
+            nextButton.addEventListener('click', e=> {
+                if(a==1)
+                {
+                    player1.score++;
+                    document.getElementById("scr1").innerText = player1.playerName+"(X): "+player1.score;
+                }
+                else if(a==2)
+                {
+                    player2.score++;
+                    document.getElementById("scr2").innerText = player2.playerName+"(O): "+player2.score;
+                }
+                stage++;
+                document.getElementById("round").innerText = "Round "+stage;
+                resetBoard();
+                clickCount=0;
+                })
+            resetButton.addEventListener('click', e => {
+            location.reload();
+                })
+        }
     }
 
     function resetBoard()
